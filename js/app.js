@@ -1,7 +1,6 @@
 //load phones
 const loadPhones = () => {
     const searchText = document.getElementById('search-field').value;
-    console.log(searchText);
     fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`)
         .then(res => res.json())
         .then(data => displayPhones(data.data))
@@ -11,7 +10,6 @@ const loadPhones = () => {
 const displayPhones = phones => {
     const phoneContainer = document.getElementById('phone-container');
     phones.forEach(phone => {
-        console.log(phone);
         const div = document.createElement('div');
         div.classList.add('col', 'col-md-6', 'col-lg-4');
         div.innerHTML = `
@@ -24,7 +22,7 @@ const displayPhones = phones => {
                     <p class="card-text">
                       <span class="fw-bold">Brand:</span> ${phone.brand}
                     </p>
-                    <button class="btn btn-primary">Show Details</button>
+                    <button onclick="loadSinglePhone('${phone.slug}')" class="btn btn-primary">Show Details</button>
                 </div>
             </div>
         `;
@@ -32,3 +30,15 @@ const displayPhones = phones => {
     })
 }
 
+//load single phone 
+const loadSinglePhone = phoneId => {
+    const url = `https://openapi.programming-hero.com/api/phone/${phoneId}`;
+    fetch(url)
+        .then(res => res.json())
+        .then(data => displayPhoneInfo(data))
+}
+
+//display phone info of card
+const displayPhoneInfo = phone => {
+    console.log(phone);
+}
