@@ -21,19 +21,32 @@
 				Welcome To <span class="text-primary">Find Phone</span>
 			</h1>
 			<hr />
-			<!-- searching input field -->
+			<!-- start searching input field -->
 			<div class="input-group mb-3 w-50 mx-auto w-responsive my-4">
 				<input
+					id="search-field"
 					type="text"
 					class="form-control"
 					placeholder="Search phone"
 					aria-label="Search phone"
 					aria-describedby="button-addon2"
 				/>
-				<button class="btn btn-primary" type="button" id="button-addon2">
+				<button
+					onclick="loadPhones()"
+					class="btn btn-primary"
+					type="button"
+					id="button-addon2"
+				>
 					Search
 				</button>
 			</div>
+			<!-- end searching input field -->
+			<!-- start phones container -->
+			<div
+				id="phone-container"
+				class="row row-cols-1 row-cols-md-3 g-4 mt-5"
+			></div>
+			<!-- end phones container -->
 		</section>
 		<!-- javascript -->
 		<script
