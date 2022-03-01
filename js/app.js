@@ -29,8 +29,9 @@ const displayPhones = phones => {
     loadingSpinner('none');
     const phoneContainer = document.getElementById('phone-container');
     const errorMessage = document.getElementById('error-message');
+    const phoneCount = phones.length;
+    document.getElementById('phone-count').innerText = `Total result: ${phoneCount}`;
     // validation
-    console.log(phones);
     if(phones.length == 0){
         errorMessage.innerHTML =`
             <h2 class="text-danger">No Record Found!</h2>
@@ -69,7 +70,6 @@ const loadSinglePhone = phoneId => {
 
 //display phone info of card
 const displayPhoneInfo = phone => {
-    console.log(phone);
     const phoneInfoContainer = document.getElementById('phone-info-container');
     phoneInfoContainer.innerHTML = `
         <div class="card w-50 mx-auto w-responsive">
