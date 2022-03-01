@@ -4,7 +4,7 @@ const loadingSpinner = display => {
    spinnerContainer.style.display = display;
 }
 
-//clear phone container
+//clear phones container
 const clearPhones = phoneContainer => {
     const clearPhones = document.getElementById(phoneContainer);
     clearPhones.textContent = '';
