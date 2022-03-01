@@ -15,6 +15,8 @@ const loadPhones = () => {
     loadingSpinner('block');
     clearPhones('phone-container');
     clearPhones('phone-info-container');
+    const errorMessage = document.getElementById('error-message');
+    errorMessage.textContent = '';
     const searchTextInput = document.getElementById('search-field').value;
     const searchText = searchTextInput.toLowerCase();
     fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`)
@@ -34,7 +36,7 @@ const displayPhones = phones => {
             <h2 class="text-danger">No Record Found!</h2>
         `;
     }else{
-        errorMessage.innerHTML = '';
+        errorMessage.textContent = '';
         phones.forEach(phone => {
             const div = document.createElement('div');
             div.classList.add('col', 'col-md-6', 'col-lg-4');
