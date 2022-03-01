@@ -18,6 +18,7 @@ const loadPhones = () => {
     const errorMessage = document.getElementById('error-message');
     errorMessage.textContent = '';
     const searchTextInput = document.getElementById('search-field').value;
+    document.getElementById('search-field').value = '';
     const searchText = searchTextInput.toLowerCase();
     fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`)
         .then(res => res.json())
@@ -29,6 +30,7 @@ const displayPhones = phones => {
     loadingSpinner('none');
     const phoneContainer = document.getElementById('phone-container');
     const errorMessage = document.getElementById('error-message');
+    //show result of number
     const phoneCount = phones.length;
     document.getElementById('phone-count').innerText = `Total result: ${phoneCount}`;
     // validation
@@ -77,10 +79,11 @@ const displayPhoneInfo = phone => {
                 <img src="${phone.image}" class="card-img-top" alt="..." />
             </div>
             <div class="card-body">
+                <h2>${phone.name}</h2>
                 <h5 class="card-title">Released Date:
                     <span class="fst-italic fw-normal">${phone.releaseDate ? phone.releaseDate : 'No Relesed Date Found!' }</span>
                 </h5>
-                <div class="mt-3">
+                <div class="mt-3" style="overflow-x: auto;">
                     <table style="width:100%">
                         <tr>
                             <th colspan="2">Main Feature's</th>
