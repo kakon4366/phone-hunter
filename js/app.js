@@ -5,15 +5,16 @@ const loadingSpinner = display => {
 }
 
 //clear phone container
-const clearPhones = () => {
-    const clearPhones = document.getElementById('phone-container');
+const clearPhones = phoneContainer => {
+    const clearPhones = document.getElementById(phoneContainer);
     clearPhones.textContent = '';
 }
 
 //load phones
 const loadPhones = () => {
     loadingSpinner('block');
-    clearPhones();
+    clearPhones('phone-container');
+    clearPhones('phone-info-container');
     const searchTextInput = document.getElementById('search-field').value;
     const searchText = searchTextInput.toLowerCase();
     fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`)
@@ -25,25 +26,35 @@ const loadPhones = () => {
 const displayPhones = phones => {
     loadingSpinner('none');
     const phoneContainer = document.getElementById('phone-container');
-    phones.forEach(phone => {
-        const div = document.createElement('div');
-        div.classList.add('col', 'col-md-6', 'col-lg-4');
-        div.innerHTML = `
-            <div class="card">
-                <div class="p-4">
-                    <img width="100%" src="${phone.image}" class="card-img-top" alt="" />
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">${phone.phone_name}</h5>
-                    <p class="card-text">
-                      <span class="fw-bold">Brand:</span> ${phone.brand}
-                    </p>
-                    <button onclick="loadSinglePhone('${phone.slug}')" class="btn btn-primary">Show Details</button>
-                </div>
-            </div>
+    const errorMessage = document.getElementById('error-message');
+    // validation
+    console.log(phones);
+    if(phones.length == 0){
+        errorMessage.innerHTML =`
+            <h2 class="text-danger">No Record Found!</h2>
         `;
-        phoneContainer.appendChild(div);
-    })
+    }else{
+        errorMessage.innerHTML = '';
+        phones.forEach(phone => {
+            const div = document.createElement('div');
+            div.classList.add('col', 'col-md-6', 'col-lg-4');
+            div.innerHTML = `
+                <div class="card">
+                    <div class="p-4">
+                        <img width="100%" src="${phone.image}" class="card-img-top" alt="" />
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">${phone.phone_name}</h5>
+                        <p class="card-text">
+                          <span class="fw-bold">Brand:</span> ${phone.brand}
+                        </p>
+                        <button onclick="loadSinglePhone('${phone.slug}')" class="btn btn-primary">Show Details</button>
+                    </div>
+                </div>
+            `;
+            phoneContainer.appendChild(div);
+        })
+    } 
 }
 
 //load single phone 
