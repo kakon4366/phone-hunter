@@ -1,6 +1,21 @@
+// loading spinner
+const loadingSpinner = display => {
+   const spinnerContainer = document.getElementById('spinner');
+   spinnerContainer.style.display = display;
+}
+
+//clear phone container
+const clearPhones = () => {
+    const clearPhones = document.getElementById('phone-container');
+    clearPhones.textContent = '';
+}
+
 //load phones
 const loadPhones = () => {
-    const searchText = document.getElementById('search-field').value;
+    loadingSpinner('block');
+    clearPhones();
+    const searchTextInput = document.getElementById('search-field').value;
+    const searchText = searchTextInput.toLowerCase();
     fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`)
         .then(res => res.json())
         .then(data => displayPhones(data.data))
@@ -8,6 +23,7 @@ const loadPhones = () => {
 
 //display phones
 const displayPhones = phones => {
+    loadingSpinner('none');
     const phoneContainer = document.getElementById('phone-container');
     phones.forEach(phone => {
         const div = document.createElement('div');
@@ -81,27 +97,27 @@ const displayPhoneInfo = phone => {
                         </tr>
                         <tr>
                             <td>Bluetooth</td>
-                            <td>${phone.others.Bluetooth}</td>
+                            <td>${phone?.others?.Bluetooth ? phone.others.Bluetooth : 'No Record Found!'}</td>
                         </tr>
                         <tr>
                             <td>GPS</td>
-                            <td>${phone.others.GPS}</td>
+                            <td>${phone?.others?.GPS ? phone.others.GPS : 'No Record Found!'}</td>
                         </tr>
                         <tr>
                             <td>NFC</td>
-                            <td>${phone.others.NFC}</td>
+                            <td>${phone?.others?.NFC ? phone.others.NFC : 'No Record Found!'}</td>
                         </tr>
                         <tr>
                             <td>Radio</td>
-                            <td>${phone.others.Radio}</td>
+                            <td>${phone?.others?.Radio ? phone.others.Radio : 'No Record Found!'}</td>
                         </tr>
                         <tr>
                             <td>USB</td>
-                            <td>${phone.others.USB}</td>
+                            <td>${phone?.others?.USB ? phone.others.USB : 'No Record Found!'}</td>
                         </tr>
                         <tr>
                             <td>WLAN</td>
-                            <td>${phone.others.WLAN}</td>
+                            <td>${phone?.others?.WLAN ? phone.others.WLAN : 'No Record Found!'}</td>
                         </tr>
                     </table>
                 </div>
